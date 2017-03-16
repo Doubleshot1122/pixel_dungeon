@@ -20,22 +20,7 @@
     <script type="text/javascript" src="src/level_4_4.js"></script>
     <script type="text/javascript" src="src/gamelose.js"></script>
     <script type="text/javascript" src="src/gameover.js"></script>
-    <script defer type="text/javascript">
-      (function () {
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameSpace')
-        game.state.add("Title", title);
-        game.state.add("Level 1", level_1);
-        game.state.add("Level 2", level_2);
-        game.state.add("Level 3", level_3);
-        game.state.add("Level 4 1", level_4_1);
-        game.state.add("Level 4 2", level_4_2);
-        game.state.add("Level 4 3", level_4_3);
-        game.state.add("Level 4 4", level_4_4);
-        game.state.add("You Lose", gamelose);
-        game.state.add("Game Over", gameover);
-        game.state.start("Title");
-      })();
-    </script>
+    <script defer type="text/javascript" src="src/main.js"></script>
 </head>
 
 <body class="text-center">
@@ -46,9 +31,9 @@
                 <div class="row">row1
                     <p class="text-center">Game Space</p>
                     <div class="row">
-                        <div class="col-md-2">2</div>
-                        <div id="gameSpace" class="col-md-8" style="display: block;"></div>
-                        <div class="col-md-2">2</div>
+                        <div class="col-md-1">1</div>
+                        <div id="gameSpace" class="col-md-10" style="display: block;"></div>
+                        <div class="col-md-1">1</div>
                     </div>
                 </div>
             </div>
@@ -59,6 +44,7 @@
 
             </div>
         </div>
+        <div class="row"><br><p>remove me</p></div>
     </main>
 </body>
 
