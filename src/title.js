@@ -1,4 +1,4 @@
-// console.log("title page loaded");
+console.log("title page loaded");
 
 var pixel_dungeon = pixel_dungeon || {};
 
@@ -13,10 +13,18 @@ pixel_dungeon.title.prototype = {
     },
 
     create: function() {
-        this.add.sprite(0,0,'title_background')
+        this.add.sprite(0,0,'title_background');
+
+        var playButton = this.add.button(160, 320, "play", this.level_1,this);
+
+	      playButton.anchor.setTo(0.5,0.5);
+
     },
 
     update: function () {
 
     }
+
 };
+
+pixel_dungeon.game.state.start('level_1');
