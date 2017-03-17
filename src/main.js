@@ -14,7 +14,7 @@ pixel_dungeon.game.state.add("level_4_4", pixel_dungeon.level_4_4);
 pixel_dungeon.game.state.add("gamelose", pixel_dungeon.gamelose);
 pixel_dungeon.game.state.add("gameover", pixel_dungeon.gameover);
 
-pixel_dungeon.game.state.start('level_1');
+pixel_dungeon.game.state.start('title');
 // pixel_dungeon.game.state.start('title');
 
 

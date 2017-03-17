@@ -4,7 +4,6 @@ var pixel_dungeon = pixel_dungeon || {};
 
 pixel_dungeon.level_1 = function() {};
 
-var currentLevel = 1;
 var platforms;
 var map;
 var boundry;
@@ -12,6 +11,10 @@ var enemy1;
 var enemy2;
 var enemy3;
 var enemy4;
+var enemy1Dead = 0;
+var enemy2Dead = 0;
+var enemy3Dead = 0;
+var enemy4Dead = 0;
 var player;
 var gem1;
 var gem2;
@@ -19,7 +22,8 @@ var gem3;
 var gem4;
 var collectedRewards = 0;
 var numberOfRewards = 4;
-var enemiesRemaining = 4;
+var numberOfEnemies = 4;
+var enemiesKilled = 0;
 var exit_box;
 
 pixel_dungeon.level_1.prototype = {
@@ -98,28 +102,28 @@ pixel_dungeon.level_1.prototype = {
 
         // spawn an enemy
         enemy1 = this.add.sprite(110, 50, 'enemies', 0);
-        enemy1.alive=true;
+        enemy1.alive = true;
         enemy1.name = 0;
         enemy1.height = 40;
         enemy1.width = 40;
         this.physics.arcade.enable(enemy1);
 
         enemy2 = this.add.sprite(750, 50, 'enemies', 0);
-        enemy2.alive=true;
+        enemy2.alive = true;
         enemy2.name = 0;
         enemy2.height = 40;
         enemy2.width = 40;
         this.physics.arcade.enable(enemy2);
 
         enemy3 = this.add.sprite(110, 475, 'enemies', 0);
-        enemy3.alive=true;
+        enemy3.alive = true;
         enemy3.name = 0;
         enemy3.height = 40;
         enemy3.width = 40;
         this.physics.arcade.enable(enemy3);
 
         enemy4 = this.add.sprite(750, 475, 'enemies', 0);
-        enemy4.alive=true;
+        enemy4.alive = true;
         enemy4.name = 0;
         enemy4.height = 40;
         enemy4.width = 40;
@@ -173,6 +177,22 @@ pixel_dungeon.level_1.prototype = {
             player.animations.play('stop');
         }
 
+        if (!enemy1.alive) {
+          enemy1Dead = 1;
+        }
+
+        if (!enemy2.alive) {
+          enemy2Dead = 1;
+        }
+
+        if (!enemy3.alive) {
+          enemy3Dead = 1;
+        }
+
+        if (!enemy4.alive) {
+          enemy4Dead = 1;
+        }
+
         awarenessRange(player, enemy1, 150);
         awarenessRange(player, enemy2, 150);
         awarenessRange(player, enemy3, 150);
@@ -194,6 +214,7 @@ pixel_dungeon.level_1.prototype = {
         killEnemy(enemy3);
         killEnemy(enemy4);
         exitActive();
+        changeStage();
     } //update()
 }; //level prototype
 
@@ -240,45 +261,52 @@ function checkOverlap(spriteA, spriteB) {
 }
 
 function getDistance(spriteA, spriteB) {
-  var boundsAx = spriteA.getBounds().x;
-  var boundsAy = spriteA.getBounds().y;
-  var boundsBx = spriteB.getBounds().x;
-  var boundsBy = spriteB.getBounds().y;
+    var boundsAx = spriteA.getBounds().x;
+    var boundsAy = spriteA.getBounds().y;
+    var boundsBx = spriteB.getBounds().x;
+    var boundsBy = spriteB.getBounds().y;
 
-  return Phaser.Math.distance(boundsAx, boundsAy, boundsBx, boundsBy);
+    return Phaser.Math.distance(boundsAx, boundsAy, boundsBx, boundsBy);
 }
 
 function awarenessRange(player, enemy, distance) {
-  var enemyX = enemy.getBounds().x;
-  var enemyY= enemy.getBounds().y;
+    var enemyX = enemy.getBounds().x;
+    var enemyY = enemy.getBounds().y;
 
-  if (getDistance(player, enemy) < distance) {
-      enemy.name = 1;
+    if (getDistance(player, enemy) < distance) {
+        enemy.name = 1;
     }
 }
 
 function guardOrFollow(enemy) {
-  if (enemy.name > 0) {
-    pixel_dungeon.game.physics.arcade.moveToObject(enemy, player, 60, 0);
-  }
-}
-
-function killPlayer(player, enemy){
-  if (checkOverlap(player, enemy)) {
-    if (enemy.alive === true) {
-      player.kill();
+    if (enemy.name > 0) {
+        pixel_dungeon.game.physics.arcade.moveToObject(enemy, player, 60, 0);
     }
-  }
 }
 
-function killEnemy(enemy){
-  if (checkOverlap(enemy, exit_box)) {
-    if (exit_box.name > 0) {
-      enemy.kill();
+function killPlayer(player, enemy) {
+    if (checkOverlap(player, enemy)) {
+        if (enemy.alive === true) {
+            player.kill();
+        }
     }
-  }
 }
 
+function killEnemy(enemy) {
+    if (checkOverlap(enemy, exit_box)) {
+        if (exit_box.name > 0) {
+            enemy.kill();
+        }
+    }
+}
+
+function changeStage() {
+    enemiesKilled = enemy1Dead + enemy2Dead + enemy3Dead + enemy4Dead
+    if (enemiesKilled === numberOfEnemies) {
+      pixel_dungeon.game.state.start('level_2');
+      // console.log("loading level 2");
+    }
+}
 
 
 //-----rewards------
@@ -294,5 +322,12 @@ function exitActive() {
     if (test === 4) {
         exit_box.name = 1;
         exit_box.tint = Math.random() * 0xffffff;
+    }
+}
+
+function directionGuesser(sprite) {
+    var test = sprite.position;
+    if (sprite.y > test.y) {
+        console.log("sprite.y > test.y");
     }
 }

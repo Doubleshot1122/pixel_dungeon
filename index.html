@@ -27,24 +27,34 @@
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-1">md1</div>
-            <div class="col-md-10">md-10
-                <div class="row">row1
-                    <p class="text-center">Game Space</p>
+            <div id = "title" class="col-md-10" ><h1 class="text-center" ><i>Pixel Dungeon</i></h1>
+                <div class="row">
+                    <!-- <h1 class="text-center">Pixel Dungeon</h1> -->
                     <div class="row">
-                        <div class="col-md-1">1</div>
-                        <div id="gameSpace" class="col-md-10" style="display: block;"></div>
-                        <div class="col-md-1">1</div>
+                        <div id="left_of_screen" class="col-md-1 text-right"></div>
+                        <div id="gameSpace" class="col-md-10" ></div>
+                        <div id="right_of_screen" class="col-md-1 text-left">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p># enemies</p>
+<div class="row"></div>
+                              <div class="row">
+                                <p># of treasures</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">md1</div>
+            <div id="outer_right" class="col-md-1">md1</div>
         </div>
         <div class="row">
             <div id="gameText" class="col-md-12 text-center">
 
             </div>
         </div>
-        <div class="row"><br><p>remove me</p></div>
+        <div class="row"></div>
     </main>
 </body>
 
