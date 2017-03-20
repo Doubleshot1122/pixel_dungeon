@@ -55,7 +55,7 @@ pixel_dungeon.level_1.prototype = {
         //setup wall group for walls
         platforms = this.add.group();
         platforms.enableBody = true;
-        // createWall(600, 400, 'v');
+
 
         //load up exit point
         exit_box = this.add.sprite(((this.world.width / 2) - 50), ((this.world.height / 2) - 50), 'exit_box');
@@ -100,7 +100,7 @@ pixel_dungeon.level_1.prototype = {
         player.animations.add('down', [0, 1, 2], 10, true);
         player.animations.add('stop', [1], 10, true);
 
-        // spawn an enemy
+        // spawn an enemies
         enemy1 = this.add.sprite(110, 50, 'enemies', 0);
         enemy1.alive = true;
         enemy1.name = 0;
@@ -129,9 +129,9 @@ pixel_dungeon.level_1.prototype = {
         enemy4.width = 40;
         this.physics.arcade.enable(enemy4);
 
-        //  Our controls.
+        //Player controls.
         cursors = this.input.keyboard.createCursorKeys();
-    }, //create()
+    }, //end of create()
 
     update: function() {
 
@@ -177,6 +177,7 @@ pixel_dungeon.level_1.prototype = {
             player.animations.play('stop');
         }
 
+        //enemy counters
         if (!enemy1.alive) {
           enemy1Dead = 1;
         }
@@ -193,6 +194,7 @@ pixel_dungeon.level_1.prototype = {
           enemy4Dead = 1;
         }
 
+        //collision rules
         awarenessRange(player, enemy1, 150);
         awarenessRange(player, enemy2, 150);
         awarenessRange(player, enemy3, 150);
@@ -215,8 +217,8 @@ pixel_dungeon.level_1.prototype = {
         killEnemy(enemy4);
         exitActive();
         changeStage();
-    } //update()
-}; //level prototype
+    } //end of update()
+}; //end of level prototype
 
 //-----walls and boundries------
 function createWall(x, y, type) {
@@ -303,8 +305,8 @@ function killEnemy(enemy) {
 function changeStage() {
     enemiesKilled = enemy1Dead + enemy2Dead + enemy3Dead + enemy4Dead
     if (enemiesKilled === numberOfEnemies) {
-      pixel_dungeon.game.state.start('level_2');
-      // console.log("loading level 2");
+      pixel_dungeon.game.state.start('title');
+      console.log("loading level 2");
     }
 }
 
